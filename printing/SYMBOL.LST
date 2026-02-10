@@ -1,0 +1,58 @@
+Turbo Assembler	 Version 4.1	    02/09/26 21:05:43	    Page 1
+symbol.asm
+
+
+
+      1	0000			     .model  tiny
+      2	0000			     .code
+      3				     org 100h
+      4
+      5	      =B800		     VIDEOSEG		     equ 0b800h	; assembler define
+      6
+      7	0100  B8 B800		     start:		     mov ax, VIDEOSEG
+      8	0103  8E C0					     mov es, ax
+      9
+     10	0105  A0 0080					     mov al,ds:[80h] ; length of terminal string
+     11	0108  B4 4E					     mov ah, 4eh ; yellow color	(better	to do constant = 4eh)
+     12
+     13	010A  33 DB					     xor bx, bx
+     14	010C  26: 89 07					     mov es:[bx], ax ; word ptr	dont need becs all defined
+     15
+     16	010F  B8 4C00					     mov ax, 4c00h
+     17	0112  CD 21					     int 21h
+     18
+     19
+     20				     end start
+Turbo Assembler	 Version 4.1	    02/09/26 21:05:43	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "02/09/26"
+??FILENAME			  Text	 "symbol  "
+??TIME				  Text	 "21:05:43"
+??VERSION			  Number 040A
+@32BIT				  Text	 0
+@CODE				  Text	 DGROUP
+@CODESIZE			  Text	 0
+@CPU				  Text	 0101H
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 SYMBOL
+@INTERFACE			  Text	 000H
+@MODEL				  Text	 1
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+START				  Near	 DGROUP:0100
+VIDEOSEG			  Number B800
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  _DATA				  16  0000 Word	  Public  DATA
+  _TEXT				  16  0114 Word	  Public  CODE
+
