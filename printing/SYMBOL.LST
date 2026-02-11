@@ -1,4 +1,4 @@
-Turbo Assembler	 Version 4.1	    02/09/26 21:05:43	    Page 1
+Turbo Assembler	 Version 4.1	    02/10/26 24:04:31	    Page 1
 symbol.asm
 
 
@@ -12,10 +12,10 @@ symbol.asm
       7	0100  B8 B800		     start:		     mov ax, VIDEOSEG
       8	0103  8E C0					     mov es, ax
       9
-     10	0105  A0 0080					     mov al,ds:[80h] ; length of terminal string
-     11	0108  B4 4E					     mov ah, 4eh ; yellow color	(better	to do constant = 4eh)
+     10	0105  B0 0E					     mov al, 0eh ; print symbol	"nota"
+     11	0107  B4 4D					     mov ah, 4dh ; yellow color	(better	to do constant = 4eh)
      12
-     13	010A  33 DB					     xor bx, bx
+     13	0109  BB 0190					     mov bx, 80d*5h ; coordinates of the centre	of 5th string
      14	010C  26: 89 07					     mov es:[bx], ax ; word ptr	dont need becs all defined
      15
      16	010F  B8 4C00					     mov ax, 4c00h
@@ -23,7 +23,7 @@ symbol.asm
      18
      19
      20				     end start
-Turbo Assembler	 Version 4.1	    02/09/26 21:05:43	    Page 2
+Turbo Assembler	 Version 4.1	    02/10/26 24:04:31	    Page 2
 Symbol Table
 
 
@@ -31,9 +31,9 @@ Symbol Table
 
 Symbol Name			  Type	 Value
 
-??DATE				  Text	 "02/09/26"
+??DATE				  Text	 "02/10/26"
 ??FILENAME			  Text	 "symbol  "
-??TIME				  Text	 "21:05:43"
+??TIME				  Text	 "24:04:31"
 ??VERSION			  Number 040A
 @32BIT				  Text	 0
 @CODE				  Text	 DGROUP
