@@ -1,4 +1,4 @@
-Turbo Assembler	 Version 4.1	    02/10/26 24:04:31	    Page 1
+Turbo Assembler	 Version 4.1	    02/10/26 24:53:25	    Page 1
 symbol.asm
 
 
@@ -16,14 +16,21 @@ symbol.asm
      11	0107  B4 4D					     mov ah, 4dh ; yellow color	(better	to do constant = 4eh)
      12
      13	0109  BB 0190					     mov bx, 80d*5h ; coordinates of the centre	of 5th string
-     14	010C  26: 89 07					     mov es:[bx], ax ; word ptr	dont need becs all defined
-     15
-     16	010F  B8 4C00					     mov ax, 4c00h
-     17	0112  CD 21					     int 21h
-     18
-     19
-     20				     end start
-Turbo Assembler	 Version 4.1	    02/10/26 24:04:31	    Page 2
+     14	010C  BA 000A					     mov dx, 10d
+     15	010F  33 C9					     xor cx, cx	     ; cx = 0
+     16	0111			     cycle:
+     17	0111  26: 89 07					     mov es:[bx], ax ; word ptr	dont need becs all defined
+     18	0114  83 C3 02					     add bx, 2h	     ; bx++
+     19	0117  83 C1 01					     add cx, 1h	     ; cx++
+     20	011A  3B CA					     cmp cx, dx
+     21	011C  7C F3					     jl	 cycle
+     22
+     23	011E  B8 4C00					     mov ax, 4c00h
+     24	0121  CD 21					     int 21h
+     25
+     26
+     27				     end start
+Turbo Assembler	 Version 4.1	    02/10/26 24:53:25	    Page 2
 Symbol Table
 
 
@@ -33,7 +40,7 @@ Symbol Name			  Type	 Value
 
 ??DATE				  Text	 "02/10/26"
 ??FILENAME			  Text	 "symbol  "
-??TIME				  Text	 "24:04:31"
+??TIME				  Text	 "24:53:25"
 ??VERSION			  Number 040A
 @32BIT				  Text	 0
 @CODE				  Text	 DGROUP
@@ -47,6 +54,7 @@ Symbol Name			  Type	 Value
 @MODEL				  Text	 1
 @STACK				  Text	 DGROUP
 @WORDSIZE			  Text	 2
+CYCLE				  Near	 DGROUP:0111
 START				  Near	 DGROUP:0100
 VIDEOSEG			  Number B800
 
@@ -54,5 +62,5 @@ Groups & Segments		  Bit Size Align  Combine Class
 
 DGROUP				  Group
   _DATA				  16  0000 Word	  Public  DATA
-  _TEXT				  16  0114 Word	  Public  CODE
+  _TEXT				  16  0123 Word	  Public  CODE
 
