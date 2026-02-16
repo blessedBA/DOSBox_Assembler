@@ -21,8 +21,7 @@ start:	        mov ax, VIDEOSEG
 
 hor_border:
                 mov es:byte ptr[bx], 0cdh ; print '='
-                inc bx
-	        inc bx
+            	add bx, 2h
                 loop hor_border
 			 
 		mov cx, 40d ; length of hor_border		
@@ -43,12 +42,12 @@ pr_ver_b:
 one_ver_b:	
 		cmp cx, 40d
 		je pr_one_ver_b
-		cmp cx, 1d
-		je madic
-		inc bx
-		inc bx
+		cmp di, 2
+		je sec_cond
+back3:
+		add bx, 2h
 		loop one_ver_b
-madic:
+
 		mov cx, 40d
 		mov es: byte ptr[bx], 0bah		
 		jmp pr_ver_b
@@ -57,6 +56,47 @@ pr_one_ver_b:
 		mov es: byte ptr[bx], 0bah
 		dec cx 
 		jmp one_ver_b
+
+sec_cond:
+		cmp cx, 20h
+		je pr_str_l
+		jmp back3		
+pr_str_l:
+		call print_string
+		jmp one_ver_b
+
+;---------------------------------------------------------------------------
+
+
+
+
+
+;---------------------------------------------------------------------------
+
+print_string	proc
+
+		push cx
+		push si
+		push bx
+		xor cx, cx
+		mov cl, ds:[80h]
+		mov si, 82h
+hor_str:
+		mov al, [si]
+		mov es:[bx], al
+		add bx, 2h
+		inc si
+		loop hor_str
+		pop bx
+		pop si
+		pop cx
+		dec cx
+		add bx, 2h		
+
+		ret
+		endp
+ 
+
 
 
 end_pr_b:
@@ -69,8 +109,7 @@ end_pr_b:
 		mov cx, 40d		
 hor_border_2:
 		mov es:byte ptr[bx], 0cdh ; print '='
-		inc bx
-		inc bx
+		add bx, 2h
 		loop hor_border_2
 
                 mov ax, 4c00h
