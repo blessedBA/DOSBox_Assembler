@@ -37,11 +37,11 @@ back3:
 		loop one_ver_b
 
 		mov cx, l_b
-		mov es: byte ptr[bx], 0bah	; print "||"	
+		mov es:[bx], 34bah	; print "||"	
 		jmp pr_ver_b
 
 pr_one_ver_b:
-		mov es: byte ptr[bx], 0bah
+		mov es:[bx], 34bah
 		dec cx 
 		jmp one_ver_b
 
@@ -84,7 +84,7 @@ calcCoord	proc
 ;Print: terminal string (length = ds:[80h]) begin from [si = 82h]
 ;Entry: no
 ;Exit:  no
-;Destr: cx++, bx += 2, al
+;Destr: CX(++), BX (+=2), AX
 ;---------------------------------------------------------------------------
 print_string	proc
 
@@ -97,7 +97,8 @@ print_string	proc
 		mov si, 82h
 hor_str:
 		mov al, [si]
-		mov es:[bx], al
+		mov ah, 4ch
+		mov es:[bx], ax
 		add bx, 2h
 		inc si
 		loop hor_str
@@ -137,10 +138,10 @@ up_corn:
 
 		jmp next2
 l_u_corn:
-		mov es:byte ptr[bx], 0c9h ; print left up corner
+		mov es:[bx], 4dc9h ; print left up corner
 		jmp next3
 r_u_corn:
-		mov es:byte ptr[bx], 0bbh ; print right bottom corner
+		mov es:[bx], 4dbbh ; print right bottom corner
 		jmp next3
 
 bot_corn:
@@ -151,14 +152,14 @@ bot_corn:
 
 		jmp next2
 l_b_corn:
-		mov es:byte ptr[bx], 0c8h ; print left up corner
+		mov es:[bx], 4dc8h ; print left up corner
 		jmp next3
 r_b_corn:
-		mov es:byte ptr[bx], 0bch ; print left bottom corner
+		mov es:[bx], 4dbch ; print left bottom corner
 		jmp next3
 
 next2:
-		mov es:byte ptr[bx], 0cdh ; print '='
+		mov es:[bx], 48cdh ; print '='
 next3:
 		add bx, 2h
 		loop hor_border
