@@ -81,7 +81,7 @@ calcCoord	proc
 		endp
 
 ;---------------------------------------------------------------------------
-;Print: terminal string (length = ds:[80h]) begin from [si = 82h]
+;Print: terminal string (length = ds:[80h]) begin from [82h]
 ;Entry: no
 ;Exit:  no
 ;Destr: CX(++), BX (+=2), AX
@@ -123,7 +123,7 @@ hor_str:
 prHorBorder	proc
 		push cx
 hor_border:
-		cmp di, 5d
+		cmp di, 5h
 		je up_corn
 		cmp di, 0h
 		je bot_corn
