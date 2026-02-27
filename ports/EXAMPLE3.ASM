@@ -31,7 +31,6 @@ oldnew09	proc
 
 		mov ax, 0b800h
 		mov es, ax
-	;	pop es  fall DOS :))))
 
 		mov bx, (5*80d + 40d) * 2
 		mov ah, 4eh
