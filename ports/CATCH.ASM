@@ -44,7 +44,7 @@ start: 		dd 90909090h
 ;-------------------------------------------------------------
 new09		proc
 
-		push ax bx es
+		push ax bx cx di es
 
 		mov bx, VIDEOSEG
 		mov es, bx
@@ -52,22 +52,26 @@ new09		proc
 
 		in al, 60h
 		mov ah, al
-		mov es:[bx], ax
+		xor di, di
+		xor cx, cx
+		mov cl, al
+		mov di, cx
+		mov es:[bx+di], ax
 		
 ;		5) blink with old bit
 
-		in al, 61h
-		or al, 80h
-		out 61h, al
-		and al, not 80h
-		out 61h, al
+	;	in al, 61h
+	;	or al, 80h
+	;	out 61h, al
+	;	and al, not 80h
+	;	out 61h, al
 
 ;		6) send signal to master-PIC
 
-		mov al, 20h
-		out 20h, al
+	;	mov al, 20h
+	;	out 20h, al
 	
-		pop es bx ax		
+		pop es di cx bx ax		
 
 ;		7) transfer control to old interruptr vector
 		
